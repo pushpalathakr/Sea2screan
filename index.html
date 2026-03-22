@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sea2Screen - Fresh Fish Availablity in Hassan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+
+    <div class="top-bar">
+        <div class="right-section">
+<button class="auth-btn" onclick="window.location.href='login.html'">Login</button>
+<button class="auth-btn" onclick="window.location.href='signup.html'">Sign Up</button>
+
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="kn">ಕನ್ನಡ</option>
+                <option value="hi">हिंदी</option>
+                <option value="ur">اردو</option>
+            </select>
+
+<select id="locationSelect" onchange="filterByLocation()">
+    <option value="all">Select Location</option>
+    <option value="hassan">Hassan City</option>
+    <option value="belur">Belur</option>
+    <option value="arsikere">Arsikere</option>
+    <option value="channarayapatna">Channarayapatna</option>
+    <option value="holenarasipura">Holenarasipura</option>
+</select>
+        </div>
+    </div>
+
+<div class="main-header">
+    <img src="logo.jpeg" class="logo"  onclick="openLogo()">
+
+    <div class="header-center">
+        <h1 id="title">🐟 Sea2Screen</h1>
+        <p id="tagline">Fresh Fish Availability in Hassan</p>
+    </div>
+
+    <!-- PROFILE ICON -->
+    <span class="home-link" onclick="goHome()">Home</span>
+ <div class="profile-box" id="profileBox" onclick="goToProfile()">
+    <span id="profileLetter"></span>
+    <small id="profileRole"></small>
+</div>
+        <span id="profileLetter"></span>
+    </div>
+</div>
+
+</header>
+<!-- POPUP LOGO -->
+<div id="logoPopup" class="logo-popup">
+    <span class="close-btn" onclick="closeLogo()">❌</span>
+    <img src="logo.jpeg" class="big-logo">
+</div>
+
+<div class="main-content">
+
+    <h2 class="section-title">Popular Fresh Fish Availability in Hassan</h2>
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+
+        <div class="filter-item">
+            <label>Sort:</label>
+            <select id="sortSelect">
+                <option value="relevance">Relevance</option>
+                <option value="rating">Rating</option>
+                <option value="popular">Popular</option>
+                <option value="distance">Distance</option>
+            </select>
+        </div>
+
+        <div class="filter-item">
+            <label><input type="checkbox" id="topRated"> Top Rated</label>
+        </div>
+
+        <div class="filter-item">
+            <label>Rating:</label>
+            <select id="ratingSelect">
+                <option value="0">Any</option>
+                <option value="3.5">3.5+</option>
+                <option value="4.0">4.0+</option>
+                <option value="4.5">4.5+</option>
+            </select>
+        </div>
+
+        <button onclick="applyAllFilters()" class="filter-btn">Apply</button>
+
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-box">
+        <div class="search-modern">
+            <input type="text" id="search" placeholder="Search fish..." oninput="toggleClear()">
+            <span class="clear" onclick="clearSearch()">✖</span>
+          <span class="mic" onclick="startVoice()">
+    <span class="mic-circle"></span>
+	<p id="noResult" style="display:none;">❌ No results found</p>
+</span>
+
+            <span class="search-icon" onclick="searchFish()">🔍</span>
+        </div>
+    </div>
+
+    <!-- LISTINGS -->
+    <div id="listings" class="listings">
+
+        <!-- CARD 1 -->
+	<div class="card" data-location="hassan" data-rating="4.3" data-popularity="85" data-distance="2"  onclick="openStall('hassan_fish_market')">
+            <img src="hassan_fish_market.jpeg">
+            <h2>Hassan Fish Market</h2>
+            <p>📍 Near City Market</p>
+            <p>⭐ 4.3</p>
+	   <p class="open">🟢 Open until 8:00 PM</p>
+            <p>📞 <a href="tel:+919876543210">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Hassan+City+Market" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919876543210" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+        <!-- CARD 2 -->
+	<div class="card" data-location="hassan" data-rating="4.5" data-popularity="85" data-distance="2" onclick="openStall('malnad_fish_center')">
+            <img src="malnad_fish_center.jpeg">
+            <h2>Malnad Fish Center</h2>
+            <p>📍 Vidyanagar</p>
+            <p>⭐ 4.5</p>
+	   <p class="open">🟢 Open until 7:00 PM</p>
+            <p>📞 <a href="tel:+919812345678">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Vidyanagar+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919812345678" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+        <!-- CARD 3 -->
+<div class="card" data-location="hassan" data-rating="4.7" data-popularity="85" data-distance="2" onclick="openStall('fishermans_choice')">
+            <img src="fishermans_choice.jpeg">
+            <h2>Fisherman’s Choice</h2>
+            <p>📍 Bangalore Road</p>
+            <p>⭐ 4.7</p>
+	    <p class="open">🟢 Open until 10:00 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+	  <!-- CARD 4 -->
+<div class="card" data-location="hassan" data-rating="3.5" data-popularity="85" data-distance="2" onclick="openStall('imag1')">
+            <img src="img1.png">
+            <h2>Manglore Fish</h2>
+            <p>📍 KR Puram Hassan, Hassan+</p>
+            <p>⭐ 3.5</p>
+	    <p class="open">🟢 Open until 9:30 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+	  <!-- CARD 3 -->
+<div class="card" data-location="hassan" data-rating="4.0" data-popularity="85" data-distance="2" onclick="openStall('m_a_r_sea_food')">
+            <img src="m_a_r_sea_food.jpeg">
+            <h2>Manglore A R see fish</h2>
+            <p>📍 Sampige Road Hassan, Hassan</p>
+            <p>⭐ 4.0</p>
+	    <p class="open">🟢 Open until 9:00 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+	  <!-- CARD 5 -->
+<div class="card" data-location="hassan" data-rating="5.0" data-popularity="85" data-distance="2" onclick="openStall('fish_hunters')">
+            <img src="fish_hunters.jpeg">
+            <h2>Fish Hunters</h2>
+            <p>📍 MG Road Hassan, Hassan</p>
+            <p>⭐ 5.0 </p>
+	<p class="open">🟢 Open until 8:00 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+	  <!-- CARD 6 -->
+
+<div class="card" data-location="hassan" data-rating="4.2" data-popularity="85" data-distance="2" onclick="openStall('yagachi_fish_land')">
+            <img src="yagachi_fish_land.jpeg">
+            <h2>Yagachi Fsh Land</h2>
+            <p>📍 Kandali, Hassan</p>
+            <p>⭐ 4.2 </p>
+	   <p class="open">🟢 Open until 11:00 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+
+	  <!-- CARD 7 -->
+<div class="card" data-location="hassan" data-rating="4.0" data-popularity="85" data-distance="2" onclick="openStall('fresh_fish_center')">      
+      <img src="fresh_fish_center.jpeg">
+            <h2>Sham Fish Center</h2>
+            <p>📍 Vidhya Nagar, Hassan</p>
+            <p>⭐ 4.0 </p>
+	   <p class="open">🟢 Open until 11:30 PM</p>
+            <p>📞 <a href="tel:+919900112233">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919900112233" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+	  <!-- CARD 8 -->
+
+<div class="card" data-location="hassan" data-rating="3.9" data-popularity="85" data-distance="2" onclick="openStall('manglore_fresh_fish_center')">
+            <img src="manglore_fresh_fish_center.jpeg">
+            <h2>Manglore Fresh Fish Center</h2>
+            <p>📍 Salgame Road, Hassan</p>
+            <p>⭐ 3.9 </p>
+	   <p class="open">🟢 Open until 9:00 PM</p>
+            <p>📞 <a href="tel:+917204875760">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Bangalore+Road+Hassan" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/917204875760" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+        <!-- CARD 9 -->
+<div class="card" data-location="hassan" data-rating="3.6" data-popularity="85" data-distance="2" onclick="openStall('ahamad_manglore_sea_fish')">
+            <img src="ahamad_manglore_sea_fish.jpeg">
+            <h2>Ahad Manglore Sea Fish</h2>
+            <p>📍 goruru road, Hassan</p>
+            <p>⭐ 3.6 </p>
+	    <p class="open">🟢 Open until 8:00 PM</p>
+            <p>📞 <a href="tel:+919876543210">Call</a></p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Hassan+City+Market" target="_blank">📍 Map</a>
+
+            <a href="https://wa.me/919876543210" target="_blank">
+                <button class="order-btn">WhatsApp</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Sea2Screen</p>
+</footer>
+
+<script src="script.js"></script>
+<script>
+let user = localStorage.getItem("isLoggedIn");
+let admin = localStorage.getItem("adminLoggedIn");
+
+if (user !== "true" && admin !== "true") {
+    alert("Please login first ❌");
+    window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
