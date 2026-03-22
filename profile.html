@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile - Sea2Screen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="auth-container">
+    <h2>Welcome 👋</h2>
+
+    <div class="profile-circle" id="profileCircle"></div>
+    <h2 id="profileName"></h2>
+
+    <p><strong>Email:</strong> <span id="userEmail"></span></p>
+    <p><strong>User ID:</strong> <span id="userId"></span></p>
+
+    <!-- ✅ BUTTONS -->
+    <button onclick="goHome()">Go to Home 🐟</button>
+
+    <!-- ✅ ADMIN ONLY -->
+    <button id="manageBtn" onclick="goToManage()" style="display:none;">
+        Manage Stalls 🛠️
+    </button>
+
+    <button onclick="logoutUser()" style="background:red; margin-top:10px;">
+        Logout 🚪
+    </button>
+</div>
+
+<script>
+
+// ================= LOGIN CHECK =================
+let loginType = localStorage.getItem("loginType");
+
+if (
+    (loginType === "user" && localStorage.getItem("isLoggedIn") !== "true") ||
+    (loginType === "admin" && localStorage.getItem("adminLoggedIn") !== "true") ||
+    !loginType
+) {
+    alert("Please login first ❌");
+    window.location.href = "./login.html";
+}
+
+
+// ================= USER =================
+if (loginType === "user") {
+
+    let userId = localStorage.getItem("userId");
+    let email = localStorage.getItem("email");
+
+    document.getElementById("profileName").innerText = userId;
+    document.getElementById("profileCircle").innerText = userId.charAt(0).toUpperCase();
+
+    document.getElementById("userEmail").innerText = email;
+    document.getElementById("userId").innerText = userId;
+}
+
+
+// ================= ADMIN =================
+else if (loginType === "admin") {
+
+    let adminUser = localStorage.getItem("adminUser");
+    let admin = JSON.parse(localStorage.getItem("admin_" + adminUser));
+
+    document.getElementById("profileName").innerText = adminUser;
+    document.getElementById("profileCircle").innerText = adminUser.charAt(0).toUpperCase();
+
+    document.getElementById("userEmail").innerText = admin.email;
+
+    document.getElementById("userId").innerHTML = `
+        ${adminUser}<br>
+        <strong>Phone:</strong> ${admin.phone}<br>
+        <strong>Address:</strong> ${admin.address}<br>
+        <strong>License:</strong> ${admin.license}
+    `;
+
+    // ✅ SHOW ADMIN BUTTON
+    document.getElementById("manageBtn").style.display = "block";
+}
+
+
+// ================= FUNCTIONS =================
+
+// ✅ FIXED PATH (WORKS IN MOST CASES)
+function goHome() {
+    window.location.href = "index.html";
+}
+
+function goToManage() {
+    window.location.href = "manage_stalls.html";
+}
+
+
+// ✅ SAFE LOGOUT
+function logoutUser() {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("adminLoggedIn");
+    localStorage.removeItem("loginType");
+
+    alert("Logged out successfully ✅");
+    window.location.href = "./login.html";
+}
+
+</script>
+
+</body>
+</html>

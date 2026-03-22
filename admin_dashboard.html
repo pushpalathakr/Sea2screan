@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<h2 style="text-align:center; color:white;">Admin Dashboard</h2>
+<div class="admin-profile">
+    <div class="admin-circle" id="adminCircle"></div>
+    <h3 id="adminName"></h3>
+</div>
+<div id="adminDetails"></div>
+
+<button class="logout-btn" onclick="logout()">Logout</button>
+<button onclick="goHome()" style="margin-top:10px;">Go to Home 🐟</button>
+<button onclick="goToManage()">Manage Stalls 🛠️</button>
+
+<script>
+if (localStorage.getItem("adminLoggedIn") !== "true") {
+    alert("Login first ❌");
+    window.location.href = "admin_login.html";
+}
+
+let user = localStorage.getItem("adminUser");
+let admin = JSON.parse(localStorage.getItem("admin_" + user));
+
+// ✅ PROFILE LETTER
+let firstLetter = user.charAt(0).toUpperCase();
+document.getElementById("adminCircle").innerText = firstLetter;
+
+// ✅ FULL NAME
+document.getElementById("adminName").innerText = user;
+
+// ✅ DETAILS
+document.getElementById("adminDetails").innerHTML = `
+    <p><b>Email:</b> ${admin.email}</p>
+    <p><b>Phone:</b> ${admin.phone}</p>
+    <p><b>Address:</b> ${admin.address}</p>
+    <p><b>License:</b> ${admin.license}</p>
+`;
+function logout() {
+    localStorage.removeItem("adminLoggedIn");
+    window.location.href = "admin_login.html";
+}
+function goHome() {
+    window.location.href = "index.html";
+}
+
+function goToManage() {
+    window.location.href = "manage_stalls.html";
+}
+</script>
+
+</body>
+</html>

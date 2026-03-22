@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Selection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<div class="container">
+
+    <h2>Select Login Type</h2>
+
+    <!-- USER LOGIN -->
+    <div id="userLoginBox">
+        <h3>User Login</h3>
+
+        <input type="text" id="userId" placeholder="User ID">
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="loginUser()">Login as User</button>
+    </div>
+
+    <hr style="margin:20px 0;">
+
+    <!-- ADMIN OPTION -->
+    <div>
+        <h3>Admin?</h3>
+        <button onclick="goAdmin()">Go to Admin Login</button>
+    </div>
+
+</div>
+
+<script>
+function loginUser() {
+    let user = document.getElementById("userId").value;
+    let pass = document.getElementById("password").value;
+
+    // simple demo check
+    if (user && pass) {
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userId", user);
+        localStorage.setItem("loginType", "user");
+
+        alert("User login successful ✅");
+        window.location.href = "index.html";
+    } else {
+        alert("Enter details ❌");
+    }
+}
+
+function goAdmin() {
+    localStorage.setItem("loginType", "admin");
+    window.location.href = "admin_login.html";
+}
+</script>
+
+</body>
+</html>

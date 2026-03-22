@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<div class="container">
+
+<h2>Admin Login</h2>
+
+<input type="text" id="loginUser" placeholder="User ID">
+<input type="password" id="loginPass" placeholder="Password">
+
+<button onclick="loginAdmin()">Login</button>
+
+<p>New Admin? <a href="admin_signup.html">Create Account</a></p>
+
+</div>
+
+<script>
+function loginAdmin() {
+    let user = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPass").value;
+
+    let data = localStorage.getItem("admin_" + user);
+
+    if (!data) {
+        if (confirm("User not found ❌\nCreate account?")) {
+            window.location.href = "admin_signup.html";
+        }
+        return;
+    }
+
+    let admin = JSON.parse(data);
+
+    if (admin.password === pass) {
+        localStorage.setItem("adminLoggedIn", "true");
+        localStorage.setItem("adminUser", user);
+
+        alert("Login successful ✅");
+        window.location.href = "admin_dashboard.html";
+    } else {
+        alert("Wrong password ❌");
+    }
+}
+</script>
+
+</body>
+</html>

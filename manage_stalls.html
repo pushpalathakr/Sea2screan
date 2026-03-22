@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Stalls</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<div class="container">
+    <h2>Manage Stall</h2>
+
+    <input type="text" id="stallName" placeholder="Stall Name">
+    <input type="text" id="location" placeholder="Location">
+    <input type="number" id="price" placeholder="Price">
+
+    <input type="text" id="closeTime" placeholder="Closing Time (Open Until)">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <input type="text" id="map" placeholder="Google Map Link">
+    <input type="text" id="whatsapp" placeholder="WhatsApp Number">
+
+    <!-- IMAGE -->
+    <input type="file" id="imageInput" onchange="previewImage()">
+    <img id="preview" style="width:100px; display:none; margin-top:10px;">
+
+    <button onclick="saveStall()">Save / Update Stall</button>
+    <button onclick="clearForm()" style="background:gray;">Clear</button>
+    <button onclick="goHome()" style="background:green;">Go Home 🐟</button>
+
+</div>
+
+<script>
+
+// 🔐 ADMIN CHECK
+if (localStorage.getItem("adminLoggedIn") !== "true") {
+    alert("Only admin allowed ❌");
+    window.location.href = "login.html";
+}
+
+
+// ✅ IMAGE PREVIEW
+function previewImage() {
+    let file = document.getElementById("imageInput").files[0];
+    let preview = document.getElementById("preview");
+
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function () {
+            preview.src = reader.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+
+// ✅ SAVE / UPDATE STALL (FINAL FIXED)
+function saveStall() {
+
+    let name = document.getElementById("stallName").value.trim();
+
+    if (!name) {
+        alert("Enter stall name ❌");
+        return;
+    }
+
+    let file = document.getElementById("imageInput").files[0];
+    let saveData = function(imageData) {
+
+        let whatsapp = document.getElementById("whatsapp").value;
+
+        // 🔥 CREATE UNIQUE ID
+        let id = name.toLowerCase().replace(/\s+/g, "_");
+
+let stall = {
+    id: id,
+    name: name,
+    location: document.getElementById("location").value.toLowerCase().trim(),
+
+    createdBy: localStorage.getItem("adminUser"), // ✅ ADD THIS
+
+    price: document.getElementById("price").value,
+    "open until": document.getElementById("closeTime").value,
+    phone: document.getElementById("phone").value,
+    map: document.getElementById("map").value,
+    whatsapp: whatsapp,
+    whatsappLink: whatsapp ? "https://wa.me/" + whatsapp : "",
+    image: imageData,
+    createdAt: Date.now()
+};
+if (!stall.createdBy) {
+    stall.createdBy = "admin"; // default fallback
+}
+        // 🔥 SAVE CORRECTLY
+        localStorage.setItem("stall_" + id, JSON.stringify(stall));
+
+        alert("Saved ✅");
+
+        window.location.href = "index.html";
+    };
+
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function () {
+            saveData(reader.result);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Upload image ❌");
+    }
+}
+
+
+// ✅ CLEAR FORM
+function clearForm() {
+    document.getElementById("stallName").value = "";
+    document.getElementById("location").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("closeTime").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("map").value = "";
+    document.getElementById("whatsapp").value = "";
+    document.getElementById("imageInput").value = "";
+    document.getElementById("preview").style.display = "none";
+}
+
+
+// ✅ GO HOME
+function goHome() {
+    window.location.href = "index.html";
+}
+
+
+</script>
+
+</body>
+</html>

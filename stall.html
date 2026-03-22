@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stall Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stall-page">
+<a href="index.html" class="home-link">⬅ Home</a>
+    <!-- NAME -->
+    <h1 id="stallName"></h1>
+
+    <!-- IMAGE -->
+    <img id="stallImage" class="stall-main-img">
+
+    <!-- OPTIONS (like Home style) -->
+    <div class="stall-options">
+<span class="tab-link active" onclick="showTab('photos', this)">Photos</span>
+<span class="tab-link" onclick="showTab('reviews', this)">Reviews</span>
+<span class="tab-link" onclick="showTab('details', this)">Details</span>
+    </div>
+
+
+    <!-- CONTENT AREA -->
+
+    <!-- PHOTOS -->
+    <div id="photos" class="tab-content"></div>
+
+    <!-- REVIEWS -->
+    <div id="reviews" class="tab-content" style="display:none;">
+        <div id="reviewsList"></div>
+
+        <textarea id="reviewInput" placeholder="Write review..."></textarea>
+	<div class="rating-box">
+    	<span class="star" onclick="rate(1)">★</span>
+    	<span class="star" onclick="rate(2)">★</span>
+   	 <span class="star" onclick="rate(3)">★</span>
+    	<span class="star" onclick="rate(4)">★</span>
+   	 <span class="star" onclick="rate(5)">★</span>
+	</div>
+
+<p id="avgRating"></p>
+        <button onclick="addReview()">Submit</button>
+    </div>
+
+    <!-- DETAILS -->
+<div id="details" class="tab-content" style="display:none;">
+    <p id="stallLocation"></p>
+    <p id="stallRating"></p>
+    <p id="stallTime"></p>
+    <a id="stallMap" target="_blank">📍 View Map</a>
+
+    <br><br>
+
+    <!-- ✅ DELETE BUTTON -->
+    <button onclick="deleteStall()" class="delete-btn">🗑️ Delete Stall</button>
+</div>
+</div>
+
+<script src="stall.js"></script>
+</body>
+</html>

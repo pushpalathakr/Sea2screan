@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+
+<div class="container">
+
+<h2>Admin Registration</h2>
+
+<input type="text" id="userId" placeholder="User ID">
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<input type="text" id="address" placeholder="Address">
+<input type="text" id="license" placeholder="License Number">
+<input type="text" id="phone" placeholder="Phone Number">
+
+<button onclick="registerAdmin()">Register</button>
+
+<p>Already have account? <a href="admin_login.html">Login</a></p>
+
+</div>
+
+<script>
+function registerAdmin() {
+    let admin = {
+        userId: document.getElementById("userId").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        address: document.getElementById("address").value,
+        license: document.getElementById("license").value,
+        phone: document.getElementById("phone").value
+    };
+
+    localStorage.setItem("admin_" + admin.userId, JSON.stringify(admin));
+
+    alert("Registered Successfully ✅");
+    window.location.href = "admin_login.html";
+}
+</script>
+
+</body>
+</html>
